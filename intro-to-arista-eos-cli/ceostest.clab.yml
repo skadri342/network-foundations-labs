@@ -1,0 +1,11 @@
+name: lab1
+
+topology:
+  kinds:
+    arista_ceos:
+      image: ceos:4.36.0.1F
+  nodes:
+    leaf1:
+      kind: arista_ceos
+  links:
+    []
