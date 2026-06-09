@@ -3,6 +3,8 @@ name: lab1
 topology:
   kinds:
     arista_ceos:
+      env:
+        CLAB_MGMT_VRF: MGMT
       image: ceos:4.36.0.1F
   nodes:
     leaf1:
