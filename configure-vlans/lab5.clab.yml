@@ -23,23 +23,13 @@ topology:
       startup-config: startup-configs/spine1.cfg
     host1:
       kind: arista_ceos
-      startup-config: startup-configs/leaf1.cfg
+      startup-config: startup-configs/host1.cfg
     host2:
       kind: arista_ceos
-      image: ceos:4.36.0.1F
-      startup-config: startup-configs/leaf1.cfg
-      binds:
-        - int-mapping.json:/mnt/flash/EosIntfMapping.json:ro
-      env:
-        CLAB_MGMT_VRF: MGMT
+      startup-config: startup-configs/host2.cfg
     host3:
       kind: arista_ceos
-      image: ceos:4.36.0.1F
-      startup-config: startup-configs/leaf1.cfg
-      binds:
-        - int-mapping.json:/mnt/flash/EosIntfMapping.json:ro
-      env:
-        CLAB_MGMT_VRF: MGMT
+      startup-config: startup-configs/host3.cfg
   links:
     [
       { endpoints: [ "leaf1:eth3", "spine1:eth3" ] },
