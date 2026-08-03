@@ -1,0 +1,32 @@
+name: lab10
+
+topology:
+  kinds:
+    arista_ceos:
+      binds:
+        - int-mapping.json:/mnt/flash/EosIntfMapping.json:ro
+      env:
+        CLAB_MGMT_VRF: MGMT
+      image: ceos:4.36.0.1F
+  nodes:
+    leaf1:
+      kind: arista_ceos
+      startup-config: startup-configs/leaf1.cfg
+    host1:
+      kind: arista_ceos
+      startup-config: startup-configs/host1.cfg
+    leaf2:
+      kind: arista_ceos
+      startup-config: startup-configs/leaf2.cfg
+    host2:
+      kind: arista_ceos
+      startup-config: startup-configs/host2.cfg
+  links:
+    [
+      { endpoints: [ "host1:eth1", "leaf1:eth7" ] },
+      { endpoints: [ "host2:eth1", "leaf1:eth9" ] },
+      { endpoints: [ "leaf1:eth1", "leaf2:eth1" ] },
+      { endpoints: [ "leaf1:eth2", "leaf2:eth2" ] },
+      { endpoints: [ "host2:eth2", "leaf2:eth9" ] },
+      { endpoints: [ "host1:eth2", "leaf2:eth7" ] }
+    ]
