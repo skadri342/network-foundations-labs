@@ -1,0 +1,29 @@
+name: lab6
+
+topology:
+  kinds:
+    arista_ceos:
+      binds:
+        - int-mapping.json:/mnt/flash/EosIntfMapping.json:ro
+      env:
+        CLAB_MGMT_VRF: MGMT
+      image: ceos:4.36.0.1F
+  nodes:
+    leaf1:
+      kind: arista_ceos
+      startup-config: startup-configs/leaf1.cfg
+    spine1:
+      kind: arista_ceos
+      startup-config: startup-configs/spine1.cfg
+    host1:
+      kind: arista_ceos
+      startup-config: startup-configs/host1.cfg
+    host2:
+      kind: arista_ceos
+      startup-config: startup-configs/host2.cfg
+  links:
+    [
+      { endpoints: [ "leaf1:eth3", "spine1:eth3" ] },
+      { endpoints: [ "host1:eth1", "leaf1:eth7" ] },
+      { endpoints: [ "host2:eth1", "leaf1:eth9" ] }
+    ]
