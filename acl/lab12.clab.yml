@@ -1,0 +1,83 @@
+name: lab12
+
+topology:
+  kinds:
+    arista_ceos:
+      binds:
+        - int-mapping.json:/mnt/flash/EosIntfMapping.json:ro
+      env:
+        CLAB_MGMT_VRF: MGMT
+      image: ceos:4.36.0.1F
+  nodes:
+    leaf1:
+      kind: arista_ceos
+      startup-config: startup-configs/leaf1.cfg
+    leaf2:
+      kind: arista_ceos
+      startup-config: startup-configs/leaf2.cfg
+    leaf3:
+      kind: arista_ceos
+      startup-config: startup-configs/leaf3.cfg
+    leaf4:
+      kind: arista_ceos
+      startup-config: startup-configs/leaf4.cfg
+    spine1:
+      kind: arista_ceos
+      startup-config: startup-configs/spine1.cfg
+    spine2:
+      kind: arista_ceos
+      startup-config: startup-configs/spine2.cfg
+    spine3:
+      kind: arista_ceos
+      startup-config: startup-configs/spine3.cfg
+    spine4:
+      kind: arista_ceos
+      startup-config: startup-configs/spine4.cfg
+    borderleaf1:
+      kind: arista_ceos
+      startup-config: startup-configs/borderleaf1.cfg
+    borderleaf2:
+      kind: arista_ceos
+      startup-config: startup-configs/borderleaf1.cfg
+    host1:
+      kind: arista_ceos
+      startup-config: startup-configs/host1.cfg
+  links:
+    [
+      { endpoints: [ "leaf1:eth1", "leaf2:eth1" ] },
+      { endpoints: [ "leaf1:eth2", "leaf2:eth2" ] },
+      { endpoints: [ "spine1:eth1", "spine2:eth1" ] },
+      { endpoints: [ "spine1:eth2", "spine2:eth2" ] },
+      { endpoints: [ "spine3:eth1", "spine4:eth1" ] },
+      { endpoints: [ "spine3:eth2", "spine4:eth2" ] },
+      { endpoints: [ "leaf3:eth1", "leaf4:eth1" ] },
+      { endpoints: [ "leaf3:eth2", "leaf4:eth2" ] },
+      { endpoints: [ "borderleaf1:eth1", "borderleaf2:eth1" ] },
+      { endpoints: [ "borderleaf1:eth2", "borderleaf2:eth2" ] },
+      { endpoints: [ "leaf1:eth3", "spine1:eth5" ] },
+      { endpoints: [ "leaf1:eth4", "spine2:eth3" ] },
+      { endpoints: [ "leaf1:eth5", "spine3:eth3" ] },
+      { endpoints: [ "leaf1:eth6", "spine4:eth3" ] },
+      { endpoints: [ "leaf2:eth3", "spine1:eth3" ] },
+      { endpoints: [ "leaf2:eth4", "spine2:eth4" ] },
+      { endpoints: [ "leaf2:eth5", "spine3:eth4" ] },
+      { endpoints: [ "leaf2:eth6", "spine4:eth4" ] },
+      { endpoints: [ "leaf3:eth3", "spine1:eth4" ] },
+      { endpoints: [ "leaf3:eth4", "spine2:eth5" ] },
+      { endpoints: [ "leaf3:eth5", "spine3:eth5" ] },
+      { endpoints: [ "leaf3:eth6", "spine4:eth5" ] },
+      { endpoints: [ "leaf4:eth3", "spine1:eth6" ] },
+      { endpoints: [ "leaf4:eth4", "spine2:eth6" ] },
+      { endpoints: [ "leaf4:eth5", "spine3:eth6" ] },
+      { endpoints: [ "leaf4:eth6", "spine4:eth6" ] },
+      { endpoints: [ "spine1:eth7", "borderleaf1:eth3" ] },
+      { endpoints: [ "spine1:eth8", "borderleaf2:eth3" ] },
+      { endpoints: [ "spine2:eth7", "borderleaf1:eth4" ] },
+      { endpoints: [ "spine2:eth8", "borderleaf2:eth4" ] },
+      { endpoints: [ "spine3:eth7", "borderleaf1:eth5" ] },
+      { endpoints: [ "spine3:eth8", "borderleaf2:eth5" ] },
+      { endpoints: [ "spine4:eth7", "borderleaf1:eth6" ] },
+      { endpoints: [ "spine4:eth8", "borderleaf2:eth6" ] },
+      { endpoints: [ "host1:eth1", "leaf1:eth7" ] },
+      { endpoints: [ "host1:eth2", "leaf2:eth7" ] }
+    ]
